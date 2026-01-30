@@ -1,0 +1,169 @@
+- id: '1767210901431'
+  alias: All Lights Off
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - input_button.turn_lights_off
+  conditions: []
+  actions:
+  - action: light.turn_off
+    metadata: {}
+    data: {}
+    target:
+      label_id: light
+  mode: single
+- id: '1767636386925'
+  alias: Restafval Notification
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - sensor.restafval
+    to:
+    - 1
+    attribute: daysTo
+  conditions: []
+  actions:
+  - delay:
+      hours: 12
+      minutes: 0
+      seconds: 0
+      milliseconds: 0
+  - action: notify.mobile_app_maartens_iphone
+    metadata: {}
+    data:
+      title: GAD
+      message: Restafval wordt morgen opgehaald
+  mode: single
+- id: '1767639257539'
+  alias: GFT Notification
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - sensor.gft
+    attribute: daysTo
+    to:
+    - 1
+  conditions: []
+  actions:
+  - delay:
+      hours: 12
+      minutes: 0
+      seconds: 0
+      milliseconds: 0
+  - action: notify.mobile_app_maartens_iphone
+    metadata: {}
+    data:
+      title: GAD
+      message: GFT wordt morgen opgehaald
+  mode: single
+- id: '1767639322046'
+  alias: Papier Notification
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - sensor.papier
+    to:
+    - 1
+    attribute: daysTo
+  conditions: []
+  actions:
+  - delay:
+      hours: 12
+      minutes: 0
+      seconds: 0
+      milliseconds: 0
+  - action: notify.mobile_app_maartens_iphone
+    metadata: {}
+    data:
+      title: GAD
+      message: Papier wordt morgen opgehaald
+  mode: single
+- id: '1767639358019'
+  alias: Plastic Notification
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - sensor.plastic
+    attribute: daysTo
+    to:
+    - 1
+  conditions: []
+  actions:
+  - delay:
+      hours: 12
+      minutes: 0
+      seconds: 0
+      milliseconds: 0
+  - action: notify.mobile_app_maartens_iphone
+    metadata: {}
+    data:
+      title: GAD
+      message: Plastic wordt morgen opgehaald
+  mode: single
+- id: '1768055242732'
+  alias: 3H Timer for Study IR Panel
+  description: ''
+  triggers:
+  - type: turned_on
+    device_id: 343547f6afde3f235edfcf0fc9cd050d
+    entity_id: b6431dfb89d859bf914e35f10990f8a4
+    domain: switch
+    trigger: device
+    id: 'on'
+  - type: turned_off
+    device_id: 343547f6afde3f235edfcf0fc9cd050d
+    entity_id: b6431dfb89d859bf914e35f10990f8a4
+    domain: switch
+    trigger: device
+    id: 'off'
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - 'on'
+      sequence:
+      - action: timer.start
+        metadata: {}
+        target:
+          entity_id: timer.study_ir_panel_timer
+        data:
+          duration: 03:00:00
+    - conditions:
+      - condition: trigger
+        id:
+        - 'off'
+      sequence:
+      - action: timer.finish
+        metadata: {}
+        target:
+          entity_id: timer.study_ir_panel_timer
+        data: {}
+  mode: single
+- id: '1768057935818'
+  alias: Turn Off IR Panel on Timer Idle
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - timer.study_ir_panel_timer
+    to:
+    - idle
+  conditions: []
+  actions:
+  - type: turn_off
+    device_id: 343547f6afde3f235edfcf0fc9cd050d
+    entity_id: b6431dfb89d859bf914e35f10990f8a4
+    domain: switch
+  - action: notify.mobile_app_maartens_iphone
+    metadata: {}
+    data:
+      title: IR Panel Study Turned Off
+      message: by automation
+  mode: single
