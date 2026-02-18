@@ -3,7 +3,7 @@ esphome:
   friendly_name: Temp + Humidity Sensor
 
 esp32:
-  board: esp32-c6-devkitc-1
+  board: esp32-c6-devkitm-1
   framework:
     type: esp-idf
 
