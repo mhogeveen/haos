@@ -3,3 +3,4 @@ home-assistant.log.fault
 .ha_run.lock
 .storage
 *.db*
+.ssh
