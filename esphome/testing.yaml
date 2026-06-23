@@ -1,0 +1,37 @@
+esphome:
+  name: testing
+  friendly_name: Testing
+
+esp32:
+  board: seeed_xiao_esp32c6
+  framework:
+    type: esp-idf
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: !secret testing_api_encryption_key
+
+ota:
+  - platform: esphome
+    password: !secret ota_password
+
+
+# Wifi settings (wifi and thread are mutually exclusive)
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  ap:
+    ssid: "Testing"
+    password: !secret ap_password
+captive_portal:
+
+# Thread settings (wifi and thread are mutually exclusive)
+# network:
+#   enable_ipv6: true
+# openthread:
+#   tlv: 0e080000000000010000000300000f4a0300001235060004001fffe00208aac424399670f6890708fd760ca47d861b0b05103b8b9d1a7f3d7397ff92e84f0c305feb030e68612d7468726561642d383336640102836d0410b73811fea128646a3a797efc574c96950c0402a0f7f8
+    
