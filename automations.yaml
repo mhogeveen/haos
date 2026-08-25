@@ -167,3 +167,51 @@
       title: IR Panel Study Turned Off
       message: by automation
   mode: single
+- id: '1770748532231'
+  alias: Test webhook
+  description: ''
+  triggers:
+  - trigger: webhook
+    allowed_methods:
+    - POST
+    local_only: false
+    webhook_id: -0ZkezeC9KcXLekGwYjkLiRrA
+  conditions: []
+  actions:
+  - action: notify.mobile_app_maartens_iphone
+    metadata: {}
+    data:
+      message: '{{as_timestamp(trigger.json.timestamp) | timestamp_custom(''%H:%M'')}}:
+        {{trigger.json.message}}'
+      title: Pulse ({{trigger.json.level}})
+  mode: single
+- id: '1770828248277'
+  alias: Away from home
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - input_boolean.away_from_home
+    from:
+    - 'off'
+    to:
+    - 'on'
+  conditions:
+  - condition: time
+    after: '17:00:00'
+    before: '23:00:00'
+    weekday:
+    - sun
+    - sat
+    - fri
+    - thu
+    - wed
+    - tue
+    - mon
+  actions:
+  - action: light.turn_on
+    metadata: {}
+    target:
+      entity_id: light.living_room_lights
+    data: {}
+  mode: single
