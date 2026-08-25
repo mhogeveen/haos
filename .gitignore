@@ -4,3 +4,4 @@ home-assistant.log.fault
 .storage
 *.db*
 .ssh
+.cache
